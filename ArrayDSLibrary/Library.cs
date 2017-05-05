@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArrayDSLibrary
 {
@@ -30,7 +26,7 @@ namespace ArrayDSLibrary
         }
         public bool Insert(Book book)
         {
-            if (IsFull())
+            if (IsFull() && Find(book.ID) != -1)
                 return false;
 
             Books[Length] = book;
@@ -75,7 +71,7 @@ namespace ArrayDSLibrary
         {
             for (int i = 0; i < Length; i++)
             {
-                Console.WriteLine("\t\t\t" + Books[i].Name + " - " + Books[i].Author + " - " + Books[i].Price + " - " + Books[i].Copies);
+                Console.WriteLine(Books[i].ID + " - " + Books[i].Name + " - " + Books[i].Author + " - " + Books[i].Price + " - " + Books[i].Copies);
             }
         }
     }

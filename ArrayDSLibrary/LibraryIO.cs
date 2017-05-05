@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace ArrayDSLibrary
 {
     class LibraryIO
     {
-        static void ReadLibraryDataFromFile(Library l, string filePath)
+        static public Library ReadLibraryDataFromFile(string filePath)
         {
             string line;
+            Library l = new Library();
             StreamReader myReader = new StreamReader(filePath);
             while ((line = myReader.ReadLine()) != null)
             {
@@ -24,8 +21,9 @@ namespace ArrayDSLibrary
                 book.Copies = int.Parse(record[4]);
                 l.Insert(book);
             }
+            return l;
         }
-        static Book ReadBookRecordFromConsole()
+        static public Book ReadBookRecordFromConsole()
         {
             Book book = new Book();
             Console.WriteLine("Enter The Details Below in tab Seperated Format");

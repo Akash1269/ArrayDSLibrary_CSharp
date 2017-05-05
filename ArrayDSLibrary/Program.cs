@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace ArrayDSLibrary
@@ -11,35 +7,65 @@ namespace ArrayDSLibrary
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\t\t\tWelcome to Library Management System\n\n");
-            //Console.WriteLine("Enter Number of Records To Be inserted");
-            //Console.WriteLine("Enter Book Name");
-            //string bookName = Console.ReadLine();
-            //Console.ReadLine();
+            Console.WriteLine("\n\n\t\t\tWelcome to Library Management System");
 
-
-
-            string line;
-
-            Library library = new Library();
-
-            StreamReader myReader = new StreamReader(@"c:\users\hp\documents\visual studio 2015\Projects\ArrayDSLibrary\ArrayDSLibrary\Data\library.txt");
-            while ((line = myReader.ReadLine()) != null)
+            const string FILE_PATH = @"c:\users\hp\documents\visual studio 2015\Projects\ArrayDSLibrary\ArrayDSLibrary\Data\library.txt";
+            Library l = LibraryIO.ReadLibraryDataFromFile(FILE_PATH);
+            bool flag;
+            int choice = -1, index;
+            while (choice != 0)
             {
-                string[] record = line.Split('\t');
-                Book book = new Book();
-                book.ID = int.Parse(record[0]);
-                book.Name = record[1];
-                book.Author = record[2];
-                book.Price = int.Parse(record[3]);
-                book.Copies = int.Parse(record[4]);
-                library.Insert(book);
+                switch (choice)
+                {
+                    case 1:
+                        flag = l.Insert(LibraryIO.ReadBookRecordFromConsole());
+                        if (flag)
+                            Console.WriteLine("Succefully inserted the record in the library");
+                        else
+                            Console.WriteLine("Error: Library is Already Full or record is already present for the given ID");
+                        break;
+                    case 2:
+                        flag = l.Update(LibraryIO.ReadBookRecordFromConsole());
+                        if (flag)
+                            Console.WriteLine("Succefully Updated the record in the library");
+                        else
+                            Console.WriteLine("Error: Record Not Found");
+                        break;
+                    case 3:
+                        Console.WriteLine("Please enter the ID of the record to be deleted");
+                        flag = l.Delete(int.Parse(Console.ReadLine()));
+                        if (flag)
+                            Console.WriteLine("Succefully deleted the record in the library");
+                        else
+                            Console.WriteLine("Error: Record not found");
+                        break;
+                    case 4:
+                        Console.WriteLine("Please enter the ID of the record to be deleted");
+                        index = l.Find(int.Parse(Console.ReadLine()));
+                        if (index != -1)
+                            Console.WriteLine("Succefully inserted the record in the library");
+                        else
+                            Console.WriteLine("Error: Item not found");
+                        break;
+                    case 5:
+                        l.PrintAllRecords();
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine("\n\n*******MENU*******\n\n");
+
+                Console.WriteLine("0.Exit");
+                Console.WriteLine("1.Insert");
+                Console.WriteLine("2.Update");
+                Console.WriteLine("3.Delete");
+                Console.WriteLine("4.Search");
+                Console.WriteLine("5.Print All Records");
+                Console.WriteLine("6.Size");
+
+                Console.Write("\nPlease Enter The choice from the Menu : ");
+                choice = int.Parse(Console.ReadLine());
             }
-            library.PrintAllRecords();
-
-            Console.Read();
-
         }
-        
     }
 }
