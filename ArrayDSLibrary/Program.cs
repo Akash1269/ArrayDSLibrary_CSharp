@@ -40,14 +40,22 @@ namespace ArrayDSLibrary
                             Console.WriteLine("Error: Record not found");
                         break;
                     case 4:
-                        Console.WriteLine("Please enter the ID of the record to be deleted");
+                        Console.WriteLine("Please enter the ID of the record to search");
                         index = l.Find(int.Parse(Console.ReadLine()));
                         if (index != -1)
-                            Console.WriteLine("Succefully inserted the record in the library");
+                            Console.WriteLine("Record found at index : " + index);
                         else
-                            Console.WriteLine("Error: Item not found");
+                            Console.WriteLine("Error: Record not found");
                         break;
                     case 5:
+                        l.PrintAllRecords();
+                        break;
+                    case 6:
+                        Console.WriteLine("Size of the library is : " + l.Length );
+                        break;
+                    case 7:
+                        l.sort();
+                        Console.WriteLine("All elements are sorted successfully");
                         l.PrintAllRecords();
                         break;
                     default:
@@ -62,10 +70,17 @@ namespace ArrayDSLibrary
                 Console.WriteLine("4.Search");
                 Console.WriteLine("5.Print All Records");
                 Console.WriteLine("6.Size");
+                Console.WriteLine("7.Sort");
 
                 Console.Write("\nPlease Enter The choice from the Menu : ");
                 choice = int.Parse(Console.ReadLine());
             }
+
+            flag = LibraryIO.WriteLibraryDataToFile(FILE_PATH, l);
+            if (flag)
+                Console.WriteLine("All data has been successfull saved to files");
+            else
+                Console.WriteLine("Unable to save the data to file");
         }
     }
 }

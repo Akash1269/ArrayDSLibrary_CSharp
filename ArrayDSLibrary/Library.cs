@@ -15,12 +15,12 @@ namespace ArrayDSLibrary
             Length = 0;
         }
 
-        public bool IsFull()
+        bool IsFull()
         {
             return Length == 100;
         }
 
-        public bool IsEmpty()
+        bool IsEmpty()
         {
             return Length == 0;
         }
@@ -65,6 +65,37 @@ namespace ArrayDSLibrary
                 return false;
             Books[index] = book;
             return true;
+        }
+
+        void swap(ref Book a,ref Book b)
+        {
+            Book temp = a;
+            a = b;
+            b = temp;
+        }
+
+        int compareBooks(Book a, Book b)
+        {
+            return string.Compare(a.Name, b.Name);
+        }
+
+        public void sort()
+        {
+            int compare;
+            bool sorted = false;
+            for (int i = 0; i < Length && sorted == false; i++)
+            {
+                sorted = true;
+                for (int j = 0; j < Length - 1; j++)
+                {
+                    compare = compareBooks(Books[j], Books[j + 1]);
+                    if(compare > 0)
+                    {
+                        sorted = false;
+                        swap(ref Books[j],ref Books[j + 1]);
+                    }
+                }
+            }
         }
 
         public void PrintAllRecords()
